@@ -3,3 +3,4 @@ numpy
 scipy
 dash
 dash-bootstrap-components
+gunicorn
