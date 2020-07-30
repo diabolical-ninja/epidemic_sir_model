@@ -3,8 +3,27 @@ import scipy.integrate as spi
 import plotly.graph_objects as go
 
 
-def calculate_sir_curve(I0, beta, gamma, TS=1.0, ND=70.0):
+def calculate_sir_curve(I0: float,
+                        beta: float,
+                        gamma: float,
+                        TS=1.0,
+                        ND=70.0) -> (np.array, np.array, float):
+    """Runs SIR simulation for given parameters
 
+    From: http://epirecip.es/epicookbook/chapters/kr08/2_1/python_original
+
+    Args:
+        I0 (float): Initial proportion of infected individuals
+        beta (float): Infection rate
+        gamma (float): Recovery rate
+        TS (float, optional): Step size in days/periods. Defaults to 1.0.
+        ND (float, optional): Number of days/periods. Defaults to 70.0.
+
+    Returns:
+        np.array, np.array, float: [description]
+    """    
+
+    # Initial susceptibles
     S0 = 1 - I0
     INPUT = (S0, I0, 0.0)
 
@@ -29,7 +48,20 @@ def calculate_sir_curve(I0, beta, gamma, TS=1.0, ND=70.0):
     return spi.odeint(diff_eqs, INPUT, t_range), t_range, r0
 
 
-def chart_sir(simulation_results, time_range, reproductive_ratio):
+def chart_sir(simulation_results: np.array, time_range: np.array, reproductive_ratio: float):
+    """Plot Simulation Results
+
+    Args:
+        simulation_results (np.array): 3D array where each item corresponds to simulation results for:
+                                            - Susceptible
+                                            - Infected
+                                            - Recovered
+        time_range (np.array): Time periods
+        reproductive_ratio (float): R0 value
+
+    Returns:
+        go.figure: Chart visualising simulation results
+    """
 
     fig = go.Figure()
     fig.add_trace(go.Scatter(x = time_range,
@@ -51,7 +83,13 @@ def chart_sir(simulation_results, time_range, reproductive_ratio):
                    )
 
     fig.update_layout(
-        title=f'Reproduction Number (R0): {round(reproductive_ratio, 2)}',
+        title={
+            'text': f'Reproduction Number (R0): {round(reproductive_ratio, 2)}',
+            'y': 0.9,
+            'x': 0.5,
+            'xanchor': 'center',
+            'yanchor': 'top'
+        },
         xaxis_title = "Time (t)",
         yaxis_title = "Population Proportion"
     )
