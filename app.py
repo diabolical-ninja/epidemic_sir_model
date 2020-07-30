@@ -4,7 +4,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
-from src.helpers import (
+from utils import (
     calculate_sir_curve,
     chart_sir
 )
@@ -24,19 +24,19 @@ controls = dbc.Card(
         ),
         dbc.FormGroup(
             [
-                dbc.Label("Beta (Infection Rate): "),
+                dbc.Label("Infection Rate (Beta): "),
                 dcc.Input(id='beta', value=2.0, step=0.01, type='number'),
             ]
         ),
         dbc.FormGroup(
             [
-                dbc.Label("Gamma (Recovery Rate): "),
+                dbc.Label("Recovery Rate (Gamma): "),
                 dcc.Input(id='gamma', value=1.0, step=0.01, type='number'),
             ]
         ),
         dbc.FormGroup(
             [
-                dbc.Label("Time Period: "),
+                dbc.Label("Time Periods: "),
                 dcc.Input(id='time-period', value=50, step=5, type='number'),
             ]
         )
