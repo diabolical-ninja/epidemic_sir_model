@@ -25,13 +25,13 @@ controls = dbc.Card(
         dbc.FormGroup(
             [
                 dbc.Label("Infection Rate (Beta): "),
-                dcc.Input(id='beta', value=2.0, step=0.01, type='number'),
+                dcc.Input(id='beta', value=1.5, step=0.01, type='number'),
             ]
         ),
         dbc.FormGroup(
             [
                 dbc.Label("Recovery Rate (Gamma): "),
-                dcc.Input(id='gamma', value=1.0, step=0.01, type='number'),
+                dcc.Input(id='gamma', value=0.2, step=0.01, type='number'),
             ]
         ),
         dbc.FormGroup(
